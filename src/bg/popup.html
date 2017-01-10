@@ -36,7 +36,8 @@
     <% if (widgets.length > 0) { %>
       <% for (var i=0; i<widgets.length; i++) { %>
         <tr>
-          <td><%= widgets[i].widget_id %></td>
+          <td><a href="#" class="widget_id" data-widget_id="<%= widgets[i].widget_id
+              %>"><%= widgets[i].widget_id %></a></td>
           <td><a href="<%= widgets[i].url %>&debug=1" class="url" target="_blank">
               <%= widgets[i].url %>&debug=1</a></td>
           <td><%= widgets[i].height %>px</td>

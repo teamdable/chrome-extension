@@ -13,6 +13,22 @@ chrome.runtime.onMessage.addListener(
       sendResponse({
         widgets: widget_list
       });
+    } else if (message.type === 'focus_widget') {
+      var widget_id = message.widget_id;
+      var $widget = $('[data-widget_id="' + widget_id + '"]');
+      window.scrollTo(0, $widget.offset().top - 100);
+
+      // focus
+      var cnt = 0;
+      var interval_id = setInterval(function () {
+        if (cnt % 2 === 0) {
+          $widget.css('outline', 'solid 5px red');
+        } else {
+          $widget.css('outline', '');
+        }
+        cnt++;
+        if (cnt > 9) clearInterval(interval_id);
+      }, 500);
     }
   }
 )
