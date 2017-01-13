@@ -12,3 +12,25 @@ chrome.extension.onMessage.addListener(
     sendResponse();
   }
 );
+
+chrome.tabs.onActiveChanged.addListener( function (tabId) {
+  chrome.browserAction.setBadgeText({ text: "" });
+  chrome.tabs.sendMessage(tabId, {"type": "widget"}, function (resp) {
+    if (resp.widgets.length > 0) {
+      chrome.browserAction.setBadgeText({ text: String(resp.widgets.length) });
+    }
+  });
+});
+
+chrome.webNavigation.onCompleted.addListener( function(details) {
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+    var activeTab = tabs[0];
+    if (activeTab.id === details.tabId) {
+      chrome.tabs.sendMessage(details.tabId, {"type": "widget"}, function (resp) {
+        if (resp.widgets.length > 0) {
+          chrome.browserAction.setBadgeText({ text: String(resp.widgets.length) });
+        }
+      });
+    }
+  });
+});

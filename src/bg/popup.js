@@ -26,5 +26,5 @@ function focusWidget(widget_id) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("check_widget").addEventListener("click", popup);
+  popup();
 });

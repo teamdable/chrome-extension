@@ -1,6 +1,6 @@
 {
   "name": "Dable extension",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "manifest_version": 2,
   "description": "Dable widget 디버깅 등, 운영에 편리한 기능을 모았다!",
   "homepage_url": "http://dable.io",
@@ -24,7 +24,8 @@
     "clipboardWrite",
     "cookies",
     "https://*/*",
-    "http://*/*"
+    "http://*/*",
+    "webNavigation"
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "content_scripts": [
