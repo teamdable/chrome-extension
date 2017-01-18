@@ -2,10 +2,10 @@
 <html>
 <head>
 <style>
-  body { min-width: 450px; background: #fff; }
+  body { min-width: 500px; background: #fff; }
   #widgets table { width: 100%; border-collapse: collapse; }
   #widgets th,td { padding: 5px 7px; border: solid 1px #ccc; }
-  .url { display: block; width: 300px; overflow: hidden;
+  .url { display: block; width: 280px; overflow: hidden;
          white-space: nowrap; text-overflow: ellipsis; }
   small { color: #777 }
 </style>
@@ -30,6 +30,7 @@
       <th>위젯ID</th>
       <th>위젯URL</th>
       <th>높이</th>
+      <th>대시보드</th>
     </tr>
   </head>
   <tbody>
@@ -41,6 +42,9 @@
           <td><a href="<%= widgets[i].url %>&debug=1" class="url" target="_blank">
               <%= widgets[i].url %>&debug=1</a></td>
           <td><%= widgets[i].height %>px</td>
+          <td><a href="https://admin.dable.io/redirect/widgets/<%=
+                widgets[i].widget_id %>"
+              target="_blank">바로가기</a></td>
         </tr>
       <% } %>
     <% } else { %>
