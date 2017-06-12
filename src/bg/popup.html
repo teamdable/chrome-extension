@@ -37,8 +37,19 @@
     <% if (widgets.length > 0) { %>
       <% for (var i=0; i<widgets.length; i++) { %>
         <tr>
-          <td><a href="#" class="widget_id" data-widget_id="<%= widgets[i].widget_id
-              %>"><%= widgets[i].widget_id %></a></td>
+
+          <td>
+            <% if (widgets[i].is_top) { %>
+              <a href="#" class="widget_id"
+                data-widget_id="<%= widgets[i].widget_id %>"
+                data-org_url="<%= widgets[i].org_url %>"
+                data-is_top="<%= widgets[i].is_top %>"
+              ><%= widgets[i].widget_id %></a>
+            <% } else { %>
+              <%= widgets[i].widget_id %><br />
+              (in frame)
+            <% } %>
+          </td>
           <td><a href="<%= widgets[i].url %>&debug=1" class="url" target="_blank">
               <%= widgets[i].url %>&debug=1</a></td>
           <td><%= widgets[i].height %>px</td>
@@ -49,7 +60,7 @@
       <% } %>
     <% } else { %>
       <tr>
-        <td colspan="3" style="text-align:center">설치된 위젯 없음</td>
+        <td colspan="4" style="text-align:center">설치된 위젯 없음</td>
     <% } %>
   </tbody>
 </table>

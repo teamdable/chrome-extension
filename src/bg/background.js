@@ -13,21 +13,36 @@ chrome.extension.onMessage.addListener(
   }
 );
 
+var widgets = [];
 chrome.tabs.onActiveChanged.addListener( function (tabId) {
-  chrome.browserAction.setBadgeText({ text: "" });
-  chrome.tabs.sendMessage(tabId, {"type": "widget"}, function (resp) {
-    if (resp.widgets.length > 0) {
-      chrome.browserAction.setBadgeText({ text: String(resp.widgets.length) });
-    }
+  widgets = [];
+  chrome.webNavigation.getAllFrames({ tabId: tabId }, function(details) {
+    chrome.browserAction.setBadgeText({ text: "" });
+    details.map(function (d) {
+      chrome.tabs.sendMessage(tabId, {
+        "type": "widget",
+        url: d.url,
+      }, function (resp) {
+        if (resp.widgets.length > 0) {
+          widgets = widgets.concat(resp.widgets);
+          chrome.browserAction.setBadgeText({ text: String(widgets.length) });
+        }
+      });
+    });
   });
 });
 
 chrome.webNavigation.onCompleted.addListener( function(details) {
+  widgets = [];
   chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
     var activeTab = tabs[0];
     if (activeTab.id === details.tabId) {
-      chrome.tabs.sendMessage(details.tabId, {"type": "widget"}, function (resp) {
+      chrome.tabs.sendMessage(details.tabId, {
+        "type": "widget",
+        url: details.url,
+      }, function (resp) {
         if (resp.widgets.length > 0) {
+          widgets = widgets.concat(resp.widgets);
           chrome.browserAction.setBadgeText({ text: String(resp.widgets.length) });
         }
       });
