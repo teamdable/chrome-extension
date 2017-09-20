@@ -1,8 +1,8 @@
 {
   "name": "Dable extension",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "manifest_version": 2,
-  "description": "Dable widget 디버깅 등, 운영에 편리한 기능을 모았다!",
+  "description": "Dable administration tools",
   "homepage_url": "http://dable.io",
   "icons": {
     "16": "icons/icon16.png",

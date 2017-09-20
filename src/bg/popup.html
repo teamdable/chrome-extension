@@ -14,10 +14,10 @@
 </head>
 <body>
   <div style="float:left">
-    <button type="button" id="check_widget">현재 페이지에 설치된 위젯 검사</button>
+    <button type="button" id="check_widget">Check widget installed in current page</button>
   </div>
   <div style="float:right">
-    <small>* 데이터가 이상하면 페이지 새로고침 후 시도해주세요.</small>
+    <small>* Try refresh when data looks not good.</small>
   </div>
   <div style="clear:both"></div>
   <br>
@@ -28,10 +28,10 @@
 <table>
   <thead>
     <tr>
-      <th>위젯ID</th>
-      <th>위젯URL</th>
-      <th>높이</th>
-      <th>대시보드</th>
+      <th>WidgetID</th>
+      <th>WidgetURL</th>
+      <th>Height</th>
+      <th>Dashboard</th>
     </tr>
   </head>
   <tbody>
@@ -56,12 +56,12 @@
           <td><%= widgets[i].height %>px</td>
           <td><a href="https://admin.dable.io/redirect/widgets/<%=
                 widgets[i].widget_id %>"
-              target="_blank">바로가기</a></td>
+              target="_blank">Go</a></td>
         </tr>
       <% } %>
     <% } else { %>
       <tr>
-        <td colspan="4" style="text-align:center">설치된 위젯 없음</td>
+        <td colspan="4" style="text-align:center">No widget installed.</td>
     <% } %>
   </tbody>
 </table>
