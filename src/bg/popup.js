@@ -2,6 +2,7 @@ function popup() {
   chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
     var activeTab = tabs[0];
     var tabId = activeTab.id;
+    document.querySelector("#test_inarticle").addEventListener('click', testInarticle);
     chrome.webNavigation.getAllFrames({ tabId: tabId }, function(details) {
       var widgets = [];
       var resp_count = 0;
@@ -38,6 +39,20 @@ function popup() {
           }
         });
       });
+    });
+  });
+}
+
+function testInarticle() {
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+    var activeTab = tabs[0];
+    chrome.tabs.sendMessage(activeTab.id, {
+      "type": "test_inarticle",
+      "url": activeTab.url,
+      "auto_scroll": document.querySelector('#auto_scroll').checked,
+      "vertical_ratio": document.querySelector('#vertical_ratio').value,
+      "step_delay": document.querySelector('#step_delay').value,
+    }, function (resp) {
     });
   });
 }

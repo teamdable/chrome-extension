@@ -30,6 +30,8 @@ chrome.runtime.onMessage.addListener(
         cnt++;
         if (cnt > 9) clearInterval(interval_id);
       }, 500);
+    } else if (message.type === 'test_inarticle' && message.url === window.location.href) {
+      test_dable_inarticle(message);
     }
   }
 );
