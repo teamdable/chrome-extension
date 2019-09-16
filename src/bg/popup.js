@@ -27,6 +27,12 @@ function popup() {
           if (resp && resp.widgets.length > 0) {
             resp.widgets.forEach(function (w) {
               w.is_top = d.parentFrameId === -1;
+              if (w.url) {
+                w.debug_url = w.url + (w.url.indexOf('?') > -1 ? '&' : '?') + '&debug=1';
+              } else {
+                w.url = '';
+                w.debug_url = '';
+              }
             });
             widgets = widgets.concat(resp.widgets);
           }
