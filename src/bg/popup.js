@@ -1,13 +1,23 @@
+/* eslint-disable */
 function popup() {
   chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
     var activeTab = tabs[0];
     var tabId = activeTab.id;
     chrome.webNavigation.getAllFrames({ tabId: tabId }, function(details) {
       var widgets = [];
+      var urls = [];
       var resp_count = 0;
+
+      details.sort( (a, b) => a.frameId - b.frameId );
+      var uniq_pages = details.filter( (d) => {
+        if (urls.indexOf(d.url) > -1) return false;
+        urls.push(d.url);
+        return true;
+      });
+
       var frame_count = details.length;
 
-      details.forEach(function (d) {
+      uniq_pages.forEach(function (d) {
         chrome.tabs.sendMessage(tabId, {
           "type": "widget",
           url: d.url,

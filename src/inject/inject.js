@@ -1,3 +1,4 @@
+/* eslint-disable */
 chrome.runtime.onMessage.addListener(
   function(message, sender, sendResponse) {
     if (message.type === 'widget' && message.url === window.location.href) {
@@ -6,7 +7,7 @@ chrome.runtime.onMessage.addListener(
       $widgets.each(function () {
         widget_list.push( {
           widget_id: $(this).attr('data-widget_id'),
-          url: $(this).find('iframe').attr('src'),
+          url: $(this).find('iframe').attr('src') || $(this).find('iframe').attr('data-org_src'),
           height: $(this).find('iframe').height(),
           org_url: window.location.href,
         } );

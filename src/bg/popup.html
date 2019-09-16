@@ -51,7 +51,7 @@
               (in frame)
             <% } %>
           </td>
-          <td><a href="<%= widgets[i].url %>&debug=1" class="url" target="_blank">
+          <td><a href="<%= widgets[i].url %><%= widgets[i].url.indexOf('?') > -1 ? '&' : '?' %>debug=1" class="url" target="_blank">
               <%= widgets[i].url %>&debug=1</a></td>
           <td><%= widgets[i].height %>px</td>
           <td><a href="https://admin.dable.io/redirect/widgets/<%=
