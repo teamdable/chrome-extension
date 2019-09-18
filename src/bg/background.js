@@ -1,3 +1,4 @@
+/* eslint-disable */
 // if you checked "fancy-settings" in extensionizr.com, uncomment this lines
 
 // var settings = new Store("settings", {
@@ -13,7 +14,6 @@ chrome.extension.onMessage.addListener(
   }
 );
 
-var widgets = [];
 chrome.tabs.onActiveChanged.addListener( function (tabId) {
   widgets = [];
   chrome.webNavigation.getAllFrames({ tabId: tabId }, function(details) {
@@ -24,8 +24,7 @@ chrome.tabs.onActiveChanged.addListener( function (tabId) {
         url: d.url,
       }, function (resp) {
         if (resp.widgets.length > 0) {
-          widgets = widgets.concat(resp.widgets);
-          chrome.browserAction.setBadgeText({ text: String(widgets.length) });
+          chrome.browserAction.setBadgeText({ text: String(resp.widgets.length) });
         }
       });
     });
@@ -41,8 +40,9 @@ chrome.webNavigation.onCompleted.addListener( function(details) {
         "type": "widget",
         url: details.url,
       }, function (resp) {
+        // chrome.extension.getBackgroundPage().console.log('BG');
+        // chrome.extension.getBackgroundPage().console.log(resp.widgets.length, resp);
         if (resp.widgets.length > 0) {
-          widgets = widgets.concat(resp.widgets);
           chrome.browserAction.setBadgeText({ text: String(resp.widgets.length) });
         }
       });
