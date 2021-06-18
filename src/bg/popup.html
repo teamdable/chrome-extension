@@ -10,7 +10,6 @@
          white-space: nowrap; text-overflow: ellipsis; }
   small { color: #777 }
 </style>
-<script src="lib/tmpl.js"></script>
 </head>
 <body>
   <div style="float:left">
@@ -21,52 +20,8 @@
   </div>
   <div style="clear:both"></div>
   <br>
-  <div id="widgets">
-  </div>
+  <div id="widgets"></div>
 
-<script type="text/html" id="widgets_tmpl">
-<table>
-  <thead>
-    <tr>
-      <th>WidgetID</th>
-      <th>WidgetURL</th>
-      <th>Height</th>
-      <th>Dashboard</th>
-    </tr>
-  </head>
-  <tbody>
-    <% if (widgets.length > 0) { %>
-      <% for (var i=0; i<widgets.length; i++) { %>
-        <tr>
-
-          <td>
-            <% if (widgets[i].is_top) { %>
-              <a href="#" class="widget_id"
-                data-widget_id="<%= widgets[i].widget_id %>"
-                data-org_url="<%= widgets[i].org_url %>"
-                data-is_top="<%= widgets[i].is_top %>"
-              ><%= widgets[i].widget_id %></a>
-            <% } else { %>
-              <%= widgets[i].widget_id %><br />
-              (in frame)
-            <% } %>
-          </td>
-          <td><a href="<%= widgets[i].debug_url %>" class="url" target="_blank">
-              <%= widgets[i].debug_url %></a></td>
-          <td><%= widgets[i].height %>px</td>
-          <td><a href="https://admin.dable.io/redirect/widgets/<%=
-                widgets[i].widget_id %>"
-              target="_blank">Go</a></td>
-        </tr>
-      <% } %>
-    <% } else { %>
-      <tr>
-        <td colspan="4" style="text-align:center">No widget installed.</td>
-    <% } %>
-  </tbody>
-</table>
-</script>
-<script src="popup.js"></script>
-
+  <script src="popup.js"></script>
 </body>
 </html>
