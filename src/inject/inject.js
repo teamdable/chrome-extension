@@ -1,8 +1,10 @@
 /* eslint-disable */
 
+let loaded = false;
 function onLoadPage() {
   const widget_els = document.querySelectorAll('[data-widget_id]');
-  if (widget_els.length === 0) return;
+  if (widget_els.length === 0 || loaded) return;
+  loaded = true;
 
   const widget_count = widget_els.length;
   const widget_list = [];
@@ -10,7 +12,6 @@ function onLoadPage() {
 
   const done = function () {
     chrome.runtime.sendMessage(
-      "ghpnefibglfjlhalajogommaabfohjhj",
       { widget_count, widget_list }
     );
   };
@@ -73,3 +74,7 @@ else
   window.addEventListener("load", function() {
     setTimeout(onLoadPage, 0);
   });
+
+if (window.top === window && performance.navigation.type == 1) {
+  chrome.runtime.sendMessage("pageRefreshed");
+}

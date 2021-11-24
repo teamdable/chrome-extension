@@ -7,7 +7,9 @@ chrome.runtime.onMessage.addListener(
     const tabId = sender.tab && sender.tab.id || request.tabId || null;
     if (!tabId) return;
 
-    if (request.widget_count) {
+    if (request === "pageRefreshed") {
+      widget_data[tabId] = {count: 0, list: []};
+    } else if (request.widget_count) {
       const frameId = sender.frameId;
       if (!widget_data[tabId]) widget_data[tabId] = {count: 0, list: []};
       widget_data[tabId].count += request.widget_count;
@@ -28,7 +30,8 @@ chrome.runtime.onMessage.addListener(
   }
 );
 
-chrome.tabs.onCreated.addListener( function ({ tabId }) {
+chrome.tabs.onCreated.addListener( function (tabId) {
+  widget_data[tabId] = {count: 0, list: []};
   chrome.action.setBadgeText({
     tabId, text: "",
   });
