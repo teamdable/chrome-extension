@@ -63,7 +63,6 @@ function popup() {
     const tabId = activeTab.id;
 
     chrome.runtime.sendMessage(
-      "ghpnefibglfjlhalajogommaabfohjhj",
       { request_widget_list: true, tabId },
       function ({ widget_list }) {
         widget_list.forEach(function (w) {
@@ -105,5 +104,9 @@ function focusWidget(widget_id, org_url) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+  popup();
+});
+
+document.getElementById("check_widget").addEventListener("click", function() {
   popup();
 });
