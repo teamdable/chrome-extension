@@ -92,11 +92,25 @@ function popup() {
   });
 }
 
+function refresh() {
+  chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+    const activeTab = tabs[0];
+    const tabId = activeTab.id;
+    chrome.runtime.sendMessage({ pageRefreshed: true, tabId: tabId });
+    chrome.tabs.sendMessage(tabId, {
+      "type": "refreshWidget",
+    });
+    setTimeout(() => {
+      popup();
+    }, 100);
+  });
+}
+
 function focusWidget(widget_id, org_url) {
   chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
     var activeTab = tabs[0];
     chrome.tabs.sendMessage(activeTab.id, {
-      "type": "focus_widget",
+      "type": "focusWidget",
       "widget_id": widget_id,
       "url": org_url,
     });
@@ -108,5 +122,5 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.getElementById("check_widget").addEventListener("click", function() {
-  popup();
+  refresh();
 });

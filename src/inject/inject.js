@@ -6,7 +6,7 @@ function onLoadPage() {
   if (widget_els.length === 0 || loaded) return;
   loaded = true;
 
-  const widget_count = widget_els.length;
+  let widget_count = widget_els.length;
   const widget_list = [];
   let widget_checked_els = 0;
 
@@ -16,7 +16,7 @@ function onLoadPage() {
     );
   };
 
-  const checkWidgetEl = function (el) {
+  const checkWidgetEl = function (el, tries = 5) {
     const f = el.getElementsByTagName('iframe')[0];
     const is_loading = !!el.getElementsByTagName('script')[0];
     if (f) {
@@ -30,10 +30,13 @@ function onLoadPage() {
       widget_checked_els++;
     } else if (is_loading) {
       setTimeout(() => {
-        checkWidgetEl(el);
-      }, 500);
+      }, 300);
+    } else if (tries > 0) {
+      setTimeout(() => {
+        checkWidgetEl(el, tries - 1);
+      }, 300);
     } else {
-      widget_checked_els++;
+      widget_count--;
     }
 
     if (widget_checked_els === widget_count) done();
@@ -46,7 +49,7 @@ function onLoadPage() {
 
 chrome.runtime.onMessage.addListener(
   function(message, sender, sendResponse) {
-    if (message.type === 'focus_widget' && message.url === window.location.href) {
+    if (message.type === 'focusWidget' && message.url === window.location.href) {
       var widget_id = message.widget_id;
       var widget_el = document.querySelector('[data-widget_id="' + widget_id + '"]');
       if (!widget_el) return;
@@ -64,6 +67,9 @@ chrome.runtime.onMessage.addListener(
         cnt++;
         if (cnt > 9) clearInterval(interval_id);
       }, 500);
+    } else if (message.type === 'refreshWidget') {
+      loaded = false;
+      onLoadPage();
     }
   }
 );
