@@ -24,7 +24,6 @@ async function getWidgetInfo(el: HTMLElement, tryCount = 5): Promise<Widget> {
 
   // Give time for the widget to render
   if (tryCount > 1 && (!frame.height || frame.height === '0')) {
-    console.log('?');
     return await getWidgetInfo(el, tryCount - 1);
   }
 
