@@ -1,0 +1,12 @@
+.focused {
+  outline: 5px solid #f00 !important;
+}
+
+.focused:before {
+  content: 'HERE!';
+  position: absolute;
+  padding: 5px;
+  font-size: 12px;
+  background: #f00;
+  color: #fff;
+}
