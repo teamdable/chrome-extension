@@ -1,5 +1,18 @@
+import { css, keyframes } from 'goober';
 import type { Message, Widget } from '../types';
-import './inject.css';
+
+const focused = css`
+  outline: 5px solid #f00 !important;
+
+  &:before {
+    content: 'HERE!';
+    position: absolute;
+    padding: 5px;
+    font-size: 12px;
+    background: #f00;
+    color: #fff;
+  }
+`;
 
 async function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -55,15 +68,17 @@ async function focusWidget(widgetId: string) {
   activeWidgetId = widgetId;
 
   el.scrollIntoView({ block: 'center' });
+  el.classList.add(focused);
   for (let i=0; i < 12; i++) {
-    el.classList.toggle('focused');
+    el.classList.toggle(focused);
     await sleep(300);
 
     if (activeWidgetId !== widgetId) {
-      el.classList.remove('focused');
+      el.classList.remove(focused);
       break;
     }
   }
+  el.classList.remove(focused);
 }
 
 chrome.runtime.onMessage.addListener((message: Message) => {
