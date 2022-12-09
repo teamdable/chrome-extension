@@ -35,7 +35,10 @@ export function Popup() {
         </Small>
       </Container>
       <WidgetList widgets={ widgets } />
-      
+      <Footer>
+        Powered by
+        <img src="./dable-logo.svg" />
+      </Footer>
     </>
   );
 }
@@ -52,3 +55,14 @@ const Small = styled('small')`
   white-space: nowrap;
   color: #878787;
 `
+
+const Footer = styled('footer')`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+
+  img {
+    height: 1.5rem;
+  }
+`;
