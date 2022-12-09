@@ -54,7 +54,7 @@ const Small = styled('small')`
   display: inline-block;
   white-space: nowrap;
   color: #878787;
-`
+`;
 
 const Footer = styled('footer')`
   display: flex;
