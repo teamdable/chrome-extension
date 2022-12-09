@@ -35,7 +35,6 @@ export function Popup() {
         </Small>
       </Container>
       <WidgetList widgets={ widgets } />
-      
     </>
   );
 }
@@ -51,4 +50,4 @@ const Small = styled('small')`
   display: inline-block;
   white-space: nowrap;
   color: #878787;
-`
+`;
