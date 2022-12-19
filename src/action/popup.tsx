@@ -6,6 +6,7 @@ import { Widget } from '@/types';
 import { Button } from './button';
 import { WidgetList } from './widget-list';
 import { getWidgets, sendTabMessage, sleep } from './utils';
+import logo from './dable-logo.svg';
 
 setup(h);
 
@@ -37,7 +38,7 @@ export function Popup() {
       <WidgetList widgets={ widgets } />
       <Footer>
         Powered by
-        <img src="./dable-logo.svg" />
+        <img src={ logo } />
       </Footer>
     </>
   );
